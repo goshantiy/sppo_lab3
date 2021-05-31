@@ -8,7 +8,7 @@
 #include <bytype.h>
 void FilesInfo(QDir dir)
 {
-    dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks|QDir::Dirs);//устанавливаем фильтр выводимых файлов
+    dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks|QDir::Dirs|QDir::NoDotAndDotDot);//устанавливаем фильтр выводимых файлов
     dir.setSorting(QDir::Size | QDir::Reversed); //устанавливаем сортировку "от меньшего к большему"
     QFileInfoList list = dir.entryInfoList();
     std::cout << " Bytes Filename" << std::endl; //выводим заголовок
@@ -23,6 +23,7 @@ void FilesInfo(QDir dir)
 
 int main(int argc, char *argv[])
 {
+    QApplication a(argc, argv);
     QString path ="C:/Users/PC/Documents/testLab3";
     std::cout<<std::endl<<"Percent by file:"<<std::endl;
     byFile test;
@@ -31,8 +32,8 @@ int main(int argc, char *argv[])
     byType test2;
     test2.explorer(path);
     FilesInfo(QDir(path));
-    QApplication a(argc, argv);
     //MainWindow w;
     //w.show();
     return 0;
+    //return a.exec();
 }

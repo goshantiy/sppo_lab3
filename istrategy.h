@@ -12,7 +12,6 @@ public:
     explicit IStrategy()=default;
     virtual ~IStrategy()=default;
     virtual void explorer(QString &path)=0;
-public:
 
 };
 

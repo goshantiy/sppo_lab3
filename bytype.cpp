@@ -22,7 +22,12 @@ for(auto ix=list.begin();ix!=list.end();ix++)
 return typesPercentage;
 
 }
-QMap<QString,double> byType::getFilesInfo(QString& path)
+void byType::setMap(const QMap<QString, double>& first, QMap<QString, double>& second)
+{
+    for(auto ix = first.begin();ix!=first.end();++ix)
+        second.insert(ix.key(),ix.value());
+}
+QMap<QString,double> byType::getFilesInfo(const QString& path)
 {
     QMap <QString,double> filesList;
     if(QFileInfo(path).isDir())//если папка
@@ -31,7 +36,9 @@ QMap<QString,double> byType::getFilesInfo(QString& path)
    {//проходимся по папке записываем размеры
        const auto somePath=ix.absoluteFilePath();//записываем путь в переменную
        if(ix.isDir())//если файл является директорией
-           filesList.insert(somePath,directorySize(ix.absoluteFilePath()));//вставляем в список путь и размер директории
+       {
+            this->setMap(this->getFilesInfo(ix.absoluteFilePath()),filesList);
+          }
        else
        filesList.insert(somePath,filesSize(somePath));//вставляем в список путь и размер файла
 

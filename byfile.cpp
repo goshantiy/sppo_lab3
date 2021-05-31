@@ -69,9 +69,17 @@ void byFile::printPercentage(const QMap<QString, double>& filesList)
         {
             check +=double(it.value());
             if(it.value()>0.01)
-            cout << it.key() << " " << it.value() << "%" << Qt::endl ;
+            {
+                cout << it.key() << " " << it.value() << "%" << Qt::endl ;
+                }
+            else
+                if(it.value()==0)
+                {
+                    cout <<it.key()<< " 0" << "%" << Qt::endl ;
+                           }
             else
             cout << it.key() << " " << "< 0.01" << "%" << Qt::endl ;
+
         }
         cout.setRealNumberPrecision(4);
          cout<<"check: "<<check<<"%"<<Qt::endl;
