@@ -4,13 +4,12 @@
 class byFile:public IStrategy
 {
 public:
-    void explorer(QString& path);
+    void calculate(QString& path);
     explicit byFile()=default;
     virtual ~byFile()=default;
     double filesSize(const QString& path);
     double directorySize(QDir dir);//размер директории
     void printPercentage(const QMap<QString, double>& filesList);
-protected:
     QMap<QString,double> getFilesInfo(QString& path);
     QMap<QString,double> getPercentage(const QMap<QString,double> list,double dirSize);
 };

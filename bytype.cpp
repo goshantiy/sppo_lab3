@@ -1,5 +1,5 @@
 #include "bytype.h"
-void byType::explorer(QString &path)
+void byType::calculate(QString &path)
 {
 double dirSize=directorySize(QDir(path));
 std::cout<<int(dirSize)<<" Bytes"<<std::endl;
@@ -13,7 +13,10 @@ QMap<QString,double> typesPercentage;
 
 for(auto ix=list.begin();ix!=list.end();ix++)
 {
-    double percentage=ix.value()*100/dirSize;
+    double percentage=0;
+    if(dirSize>0)
+    percentage=double(ix.value()*100)/dirSize;
+    else percentage=0;
     auto type=QFileInfo(ix.key()).suffix();
     if(type.isEmpty())
         type="unknown";
@@ -79,12 +82,22 @@ void byType::printPercentage(const QMap<QString, double>& filesList)
         cout.setRealNumberPrecision(2);//кол-во чисел после запятой
         for (auto it = filesList.begin(); it != filesList.end(); ++it)
         {
+
             check +=double(it.value());
             if(it.value()>0.01)
-            cout << it.key() << " " << it.value() << "%" << Qt::endl ;
+            {
+                cout << it.key() << " " << it.value() << "%" << Qt::endl ;
+                }
+            else if(it.value()==0)
+                {
+                    cout <<it.key()<< " 0" << "%" << Qt::endl ;
+                           }
             else
             cout << it.key() << " " << "< 0.01" << "%" << Qt::endl ;
         }
         cout.setRealNumberPrecision(4);
+        if(check==0)
+            cout<<"empty"<<Qt::endl;
          cout<<"check: "<<check<<"%"<<Qt::endl;
+
     }

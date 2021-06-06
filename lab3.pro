@@ -11,18 +11,17 @@ CONFIG += c++11
 SOURCES += \
     byfile.cpp \
     bytype.cpp \
+    controlstrategy.cpp \
     istrategy.cpp \
-    main.cpp \
-    mainwindow.cpp
+    main.cpp
 
 HEADERS += \
     byfile.h \
     bytype.h \
-    istrategy.h \
-    mainwindow.h
+    controlstrategy.h \
+    istrategy.h
 
-FORMS += \
-    mainwindow.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

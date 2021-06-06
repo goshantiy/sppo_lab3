@@ -1,4 +1,3 @@
-#include "mainwindow.h"
 #include <QApplication>
 #include <QDir>
 #include <QFileInfoList>
@@ -6,6 +5,7 @@
 #include <QMap>
 #include <byfile.h>
 #include <bytype.h>
+#include <controlstrategy.h>
 void FilesInfo(QDir dir)
 {
     dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks|QDir::Dirs|QDir::NoDotAndDotDot);//устанавливаем фильтр выводимых файлов
@@ -23,17 +23,28 @@ void FilesInfo(QDir dir)
 
 int main(int argc, char *argv[])
 {
+
     QApplication a(argc, argv);
     QString path ="C:/Users/PC/Documents/testLab3";
-    std::cout<<std::endl<<"Percent by file:"<<std::endl;
-    byFile test;
-    test.explorer(path);
-    std::cout<<std::endl<<"Percent by type:"<<std::endl;
-    byType test2;
-    test2.explorer(path);
-    FilesInfo(QDir(path));
-    //MainWindow w;
-    //w.show();
+    controlStrategy* strategy=new controlStrategy(new byType);
+    strategy->doStrategy(path);
+    strategy->setStrategy(new byFile);
+    strategy->doStrategy(path);
     return 0;
+//    std::cout<<std::endl<<"Type Strategy:"<<std::endl;
+// IStrategy *filestrat=new byType();
+//  filestrat->calculate(path);
+//   std::cout<<std::endl<<"File Strategy:"<<std::endl;
+// IStrategy *typestrat=new byFile();
+//  typestrat->calculate(path);
+ // std::cout<<std::endl<<"Percent by file:"<<std::endl;
+//    byFile test;
+//    test.explorer(path);
+//    std::cout<<std::endl<<"Percent by type:"<<std::endl;
+//    byType test2;
+//    test2.explorer(path);
+
+    //FilesInfo(QDir(path));
+
     //return a.exec();
 }

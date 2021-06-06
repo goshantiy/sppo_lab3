@@ -11,7 +11,7 @@ class IStrategy
 public:
     explicit IStrategy()=default;
     virtual ~IStrategy()=default;
-    virtual void explorer(QString &path)=0;
+    virtual void calculate(QString &path)=0;
 
 };
 

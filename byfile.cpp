@@ -1,5 +1,5 @@
 #include "byfile.h"
-void byFile::explorer(QString &path)
+void byFile::calculate(QString &path)
 {
 int dirSize=directorySize(QDir(path));
 std::cout<<dirSize<<" Bytes"<<std::endl;
@@ -31,8 +31,12 @@ QMap<QString,double> byFile::getPercentage(const QMap<QString,double> list,doubl
     QMap <QString,double> filesPercentage;//словарь хранящий название файла и занимаемый размер в процентах
     for(auto ix=list.begin();ix!=list.end();ix++)//идём по списку файлов
     {
+        if(dirSize>0)
+        {
        const auto percentage= double(ix.value()*100) / dirSize;//считаем процент
-       filesPercentage.insert(ix.key(),percentage);//записываем
+       filesPercentage.insert(ix.key(),percentage);
+       }//записываем
+        else filesPercentage.insert(ix.key(),0);
     }
     return filesPercentage;
 }
@@ -67,18 +71,18 @@ void byFile::printPercentage(const QMap<QString, double>& filesList)
         cout.setRealNumberPrecision(2);//кол-во чисел после запятой
         for (auto it = filesList.begin(); it != filesList.end(); ++it)
         {
+
             check +=double(it.value());
             if(it.value()>0.01)
             {
                 cout << it.key() << " " << it.value() << "%" << Qt::endl ;
                 }
-            else
-                if(it.value()==0)
+            else if(it.value()==0)
                 {
                     cout <<it.key()<< " 0" << "%" << Qt::endl ;
                            }
             else
-            cout << it.key() << " " << "< 0.01" << "%" << Qt::endl ;
+            cout << it.key() << " " << "< 0.01" << "%" << Qt::endl;
 
         }
         cout.setRealNumberPrecision(4);
