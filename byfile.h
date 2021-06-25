@@ -4,7 +4,7 @@
 class byFile:public IStrategy
 {
 public:
-    void calculate(QString& path);
+    QList<Data> calculate(QString& path);
     explicit byFile()=default;
     virtual ~byFile()=default;
     double filesSize(const QString& path);

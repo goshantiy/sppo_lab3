@@ -1,11 +1,14 @@
 #include "byfile.h"
-void byFile::calculate(QString &path)
+QList<Data> byFile::calculate(QString &path)
 {
 int dirSize=directorySize(QDir(path));
-std::cout<<dirSize<<" Bytes"<<std::endl;
+//std::cout<<dirSize<<" Bytes"<<std::endl;
 auto filesInfo=getFilesInfo(path);
 auto percentage=getPercentage(filesInfo,dirSize);
-printPercentage(percentage);
+QList<Data> data;
+for (const auto& key : filesInfo.keys())
+            data.push_back(Data(key, filesInfo.value(key), percentage.value(key)));
+return data;
 }
 QMap<QString,double> byFile::getFilesInfo(QString& path)
 {
