@@ -4,24 +4,37 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QFileSystemModel>
-#include <QTreeView>
 #include <QTableView>
-
+#include <filebrowsermodel.h>
+#include <data.h>
+#include <byfile.h>
+#include <bytype.h>
+#include <controlstrategy.h>
+namespace Ui
+{
+class MainWindow;
+}
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 private slots:
+void treeViewCollapsedOrExpanded();
+void on_selectionChangedSlot(const QItemSelection &selected, const QItemSelection &deselected);
+void actionChange(int);
 
-    void on_selectionChangedSlot(const QItemSelection &selected, const QItemSelection &deselected);
-
+signals:
+    void updateModel(QList<Data> model);
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 private:
-    QFileSystemModel *fileModel;
+    controlStrategy* strategy;
+    QList<Data> dataModel;
+    fileBrowserModel *fileModel;
     QFileSystemModel *dirModel;
-    QTreeView *treeView;
     QTableView *tableView;
+    QString curDir;
+    Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H
