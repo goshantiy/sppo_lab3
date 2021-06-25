@@ -1,11 +1,33 @@
 #include "bytype.h"
-void byType::calculate(QString &path)
+#include <data.h>
+QList<Data> byType::calculate(QString &path)
 {
 double dirSize=directorySize(QDir(path));
-std::cout<<int(dirSize)<<" Bytes"<<std::endl;
+//std::cout<<int(dirSize)<<" Bytes"<<std::endl;
 auto filesInfo=getFilesInfo(path);
 auto percentage=getTypePercentage(filesInfo,dirSize);
-printPercentage(percentage);
+QList<Data> data;
+auto typeSize = getTypeSize(filesInfo);
+for (const auto& key : percentage.keys())
+            data.push_back(Data(key, typeSize.value(key), percentage.value(key)));
+return data;
+
+}
+QMap<QString,double> byType::getTypeSize(QMap<QString,double> list)
+{
+QMap<QString,double> typeSize;
+
+for(auto ix=list.begin();ix!=list.end();ix++)
+{
+    double size=0;
+    size=ix.value();
+    auto type=QFileInfo(ix.key()).suffix();
+    if(type.isEmpty())
+        type="unknown";
+    typeSize.insert(type,typeSize[type]+size);
+}
+return typeSize;
+
 }
 QMap<QString,double> byType::getTypePercentage(QMap<QString,double> list,double dirSize)
 {
