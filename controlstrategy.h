@@ -7,7 +7,7 @@ public:
     controlStrategy(IStrategy* strategy = nullptr);
     ~controlStrategy();
     void setStrategy(IStrategy* strategy);
-    void doStrategy(QString& path);
+    QList<Data> doStrategy(QString& path);
 private:
     IStrategy* strategy_;
 };

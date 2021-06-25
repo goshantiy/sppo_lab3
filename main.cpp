@@ -6,6 +6,7 @@
 #include <byfile.h>
 #include <bytype.h>
 #include <controlstrategy.h>
+#include <mainwindow.h>
 void FilesInfo(QDir dir)
 {
     dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks|QDir::Dirs|QDir::NoDotAndDotDot);//устанавливаем фильтр выводимых файлов
@@ -30,7 +31,11 @@ int main(int argc, char *argv[])
     strategy->doStrategy(path);
     strategy->setStrategy(new byFile);
     strategy->doStrategy(path);
-    return 0;
+    //return 0;
+    MainWindow w;
+    w.show();
+    return a.exec();
+
 //    std::cout<<std::endl<<"Type Strategy:"<<std::endl;
 // IStrategy *filestrat=new byType();
 //  filestrat->calculate(path);

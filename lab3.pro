@@ -12,16 +12,21 @@ SOURCES += \
     byfile.cpp \
     bytype.cpp \
     controlstrategy.cpp \
-    istrategy.cpp \
-    main.cpp
+    filebrowsermodel.cpp \
+    main.cpp \
+    mainwindow.cpp
 
 HEADERS += \
     byfile.h \
     bytype.h \
     controlstrategy.h \
-    istrategy.h
+    data.h \
+    filebrowsermodel.h \
+    istrategy.h \
+    mainwindow.h
 
-FORMS +=
+FORMS += \
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -6,12 +6,13 @@
 #include <QFileInfo>
 #include <iostream>
 #include <QTextStream>
+#include <data.h>
 class IStrategy
 {
 public:
     explicit IStrategy()=default;
     virtual ~IStrategy()=default;
-    virtual void calculate(QString &path)=0;
+    virtual QList<Data> calculate(QString &path)=0;
 
 };
 
