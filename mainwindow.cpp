@@ -16,14 +16,31 @@ MainWindow::MainWindow(QWidget *parent)
       ui(new Ui::MainWindow),
       strategy(new controlStrategy(new byFile))
 {
-      ui->setupUi(this);
+     ui->setupUi(this);
       curDir="C:/Users/PC/Documents/testLab3";
+      QDir b(curDir);
+      if(!b.isReadable())
+       curDir=QDir::homePath();
       fileModel=new fileBrowserModel(this, strategy->doStrategy(curDir));
+      model=fileModel;
       tableView = new QTableView(this);
       tableView->setModel(fileModel);
       ui->horizontalLayout_4->addWidget(tableView);
       tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
       ui->treeView->header()->setSectionResizeMode(QHeaderView::Stretch);
+      view=tableView;
+      bar=new barChart(this, strategy->doStrategy(curDir));
+      pie=new pieChart(this, strategy->doStrategy(curDir));
+      stack= new stackedBar(this, strategy->doStrategy(curDir));
+      barView=new QChartView(bar->getChart());
+      pieView=new QChartView(pie->getChart());
+      stackView=new QChartView(stack->getChart());
+      ui->horizontalLayout_4->addWidget(barView);
+      ui->horizontalLayout_4->addWidget(pieView);
+      ui->horizontalLayout_4->addWidget(stackView);
+      barView->hide();
+      pieView->hide();
+      stackView->hide();
       dirModel=new QFileSystemModel(this);
       dirModel->setFilter(QDir::NoDotAndDotDot|QDir::AllDirs);
       dirModel->setRootPath("C:/");
@@ -33,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
       connect(ui->treeView,SIGNAL(collapsed(const QModelIndex )),this,SLOT(treeViewCollapsedOrExpanded()));
 
       connect(ui->comboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(actionChange(int)));
+      connect(ui->comboBox_2,SIGNAL(currentIndexChanged(int)),this,SLOT(viewChange(int)));
 
       QItemSelectionModel *selectionModel = ui->treeView->selectionModel();
 
@@ -51,7 +69,7 @@ void MainWindow::actionChange(int ix)
         break;
    }
 
-    fileModel->updateModel(strategy->doStrategy(curDir));
+    model->updateModel(strategy->doStrategy(curDir));
 }
 void MainWindow::on_selectionChangedSlot(const QItemSelection &selected, const QItemSelection &deselected)
 {
@@ -65,7 +83,37 @@ void MainWindow::on_selectionChangedSlot(const QItemSelection &selected, const Q
         this->statusBar()->showMessage("Выбранный путь : " + curDir);
     }
 
-    fileModel->updateModel(strategy->doStrategy(curDir));
+    model->updateModel(strategy->doStrategy(curDir));
+}
+void MainWindow::viewChange(int display_id)
+{
+    view->hide();
+    switch (display_id)
+    {
+    case 0:
+        view = tableView;
+        model = fileModel;
+        model->updateModel(strategy->doStrategy(curDir));
+        break;
+    case 1:
+
+        view = pieView;
+        model = pie;
+        model->updateModel(strategy->doStrategy(curDir));
+        break;
+    case 2:
+        view = barView;
+        model = bar;
+        model->updateModel(strategy->doStrategy(curDir));
+        break;
+     case 3:
+        view = stackView;
+        model = stack;
+        model->updateModel(strategy->doStrategy(curDir));
+        break;
+
+    }
+    view->show();
 }
 
 MainWindow::~MainWindow()

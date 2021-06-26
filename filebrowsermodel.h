@@ -2,8 +2,9 @@
 #define FILEBROWSERMODEL_H
 #include <QAbstractTableModel>
 #include <data.h>
+#include <imodel.h>
 
-class fileBrowserModel: public QAbstractTableModel
+class fileBrowserModel: public QAbstractTableModel, public IModel
 {
 public:
     fileBrowserModel(QObject* parent,const QList<Data>& data=QList<Data>());
@@ -11,7 +12,7 @@ public:
     int columnCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
-    void updateModel(QList<Data>);
+    virtual void updateModel(QList<Data>);
 private:
     QList<Data> model_;
  };

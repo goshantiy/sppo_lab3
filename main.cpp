@@ -26,11 +26,11 @@ int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
-    QString path ="C:/Users/PC/Documents/testLab3";
-    controlStrategy* strategy=new controlStrategy(new byType);
-    strategy->doStrategy(path);
-    strategy->setStrategy(new byFile);
-    strategy->doStrategy(path);
+    //QString path ="C:/Users/PC/Documents/testLab3";
+    //controlStrategy* strategy=new controlStrategy(new byType);
+    //strategy->doStrategy(path);
+    //strategy->setStrategy(new byFile);
+    //strategy->doStrategy(path);
     //return 0;
     MainWindow w;
     w.show();
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 // IStrategy *typestrat=new byFile();
 //  typestrat->calculate(path);
  // std::cout<<std::endl<<"Percent by file:"<<std::endl;
-//    byFile test;
+//    byFile test;@
 //    test.explorer(path);
 //    std::cout<<std::endl<<"Percent by type:"<<std::endl;
 //    byType test2;

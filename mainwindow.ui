@@ -31,6 +31,13 @@
        </spacer>
       </item>
       <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Стратегия:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QComboBox" name="comboBox">
         <property name="font">
          <font>
@@ -48,6 +55,37 @@
         <item>
          <property name="text">
           <string>byType</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Отображение:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboBox_2">
+        <item>
+         <property name="text">
+          <string>table</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>pie</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>bar</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>stackbar</string>
          </property>
         </item>
        </widget>
